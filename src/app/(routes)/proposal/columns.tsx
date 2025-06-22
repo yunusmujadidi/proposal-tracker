@@ -78,7 +78,15 @@ export const columns: ColumnDef<Proposal>[] = [
   },
   {
     accessorKey: "amount",
-    header: "Jumlah",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Jumlah
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
       const amount = row.getValue("amount") as number;
       return new Intl.NumberFormat("id-ID", {
@@ -103,7 +111,15 @@ export const columns: ColumnDef<Proposal>[] = [
 
   {
     accessorKey: "createdAt",
-    header: "Tanggal",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Tanggal
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
       const date = row.getValue("createdAt") as Date;
       return format(date, "dd MMM yyyy", { locale: id });

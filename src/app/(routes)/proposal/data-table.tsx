@@ -43,7 +43,12 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>([
+    {
+      id: "createdAt",
+      desc: true,
+    },
+  ]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
@@ -104,6 +109,14 @@ export function DataTable<TData, TValue>({
             <SelectItem value="NEEDS_SURVEY">Perlu Survey</SelectItem>
           </SelectContent>
         </Select>
+        {table.getFilteredSelectedRowModel().rows.length > 0 && (
+          <Button className="ml-2" variant="destructive">
+            Hapus
+          </Button>
+        )}
+        <Button className="ml-2" variant="default">
+          Tambah Proposal
+        </Button>
       </div>
       <div className="rounded-md border">
         <Table>

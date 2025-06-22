@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { Navbar } from "@/components/navbar";
 
@@ -34,10 +34,12 @@ export default function RootLayout({
       >
         <SidebarProvider>
           <AppSidebar />
-          <main>
-            <Navbar />
-            {children}
-          </main>
+          <SidebarInset>
+            <main>
+              <Navbar />
+              {children}
+            </main>
+          </SidebarInset>
         </SidebarProvider>
       </body>
     </html>

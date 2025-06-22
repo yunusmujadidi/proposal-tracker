@@ -5,7 +5,7 @@ import { SidebarHeader } from "./sidebar-header";
 
 export const AppSidebar = () => {
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarHeader />
       <SidebarContent>
         <SidebarNav />

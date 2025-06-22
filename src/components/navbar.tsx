@@ -4,7 +4,7 @@ import { SidebarTrigger } from "./ui/sidebar";
 
 export const Navbar = () => {
   return (
-    <div className="flex items-center justify-center gap-2 p-4 m-2">
+    <div className="flex items-center gap-2 p-4 m-2">
       <SidebarTrigger />
       <Separator
         orientation="vertical"

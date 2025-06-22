@@ -75,9 +75,9 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4 justify-between w-full max-w-screen">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+      <div className="flex items-center py-4 justify-between w-full max-w-screen md:flex-row flex-col gap-2">
+        <div className="relative flex-1 w-full md:w-48">
+          <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground " />
           <Input
             placeholder="Cari proposal"
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
               ?.setFilterValue(value === "all" ? "" : value)
           }
         >
-          <SelectTrigger className="w-full sm:w-48">
+          <SelectTrigger className="w-full md-48">
             <SelectValue placeholder="Filter Status" />
           </SelectTrigger>
           <SelectContent>
@@ -110,11 +110,11 @@ export function DataTable<TData, TValue>({
           </SelectContent>
         </Select>
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
-          <Button className="ml-2" variant="destructive">
+          <Button className="ml-2 md:w-auto w-full" variant="destructive">
             Hapus
           </Button>
         )}
-        <Button className="ml-2" variant="default">
+        <Button className="ml-2 md:w-auto w-full" variant="default">
           Tambah Proposal
         </Button>
       </div>

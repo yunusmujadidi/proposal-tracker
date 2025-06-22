@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Proposal } from "../../../../generated/prisma";
+import { Proposal, ProposalStatus } from "../../../../generated/prisma";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -23,21 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-
-const getStatusColor = (status: Proposal["status"]) => {
-  switch (status) {
-    case "PENDING":
-      return "bg-yellow-100 text-yellow-800";
-    case "APPROVED":
-      return "bg-green-100 text-green-800";
-    case "REJECTED":
-      return "bg-red-100 text-red-800";
-    case "ACHIEVED":
-      return "bg-blue-100 text-blue-800";
-    default:
-      return "bg-gray-100 text-gray-800";
-  }
-};
+import { getStatusColor } from "@/lib/const";
 
 export const columns: ColumnDef<Proposal>[] = [
   {
@@ -100,7 +86,7 @@ export const columns: ColumnDef<Proposal>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status") as Proposal["status"];
+      const status = row.getValue("status") as ProposalStatus;
       return (
         <Badge className={getStatusColor(status)}>
           {status.replace(/_/g, " ")}

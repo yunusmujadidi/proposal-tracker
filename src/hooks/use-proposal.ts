@@ -6,7 +6,13 @@ type ProposalState = {
   onClose: () => void;
 };
 
-export const useProposalSheet = create<ProposalState>((set) => ({
+export const useNewProposalSheet = create<ProposalState>((set) => ({
+  isOpen: false,
+  onOpen: () => set({ isOpen: true }),
+  onClose: () => set({ isOpen: false }),
+}));
+
+export const useEditProposalSheet = create<ProposalState>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),

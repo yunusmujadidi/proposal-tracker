@@ -24,7 +24,7 @@ import {
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { getStatusColor } from "@/lib/const";
-import { useProposalSheet } from "@/hooks/use-proposal";
+import { useNewProposalSheet } from "@/hooks/use-proposal";
 import { formatIDR } from "@/lib/utils";
 
 export const columns: ColumnDef<Proposal>[] = [
@@ -133,7 +133,7 @@ export const columns: ColumnDef<Proposal>[] = [
     header: "Aksi",
     cell: ({ row }) => {
       const proposal = row.original;
-      const { onOpen } = useProposalSheet();
+      const { onOpen } = useNewProposalSheet();
 
       return (
         <DropdownMenu>

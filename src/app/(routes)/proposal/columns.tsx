@@ -24,6 +24,7 @@ import {
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { getStatusColor } from "@/lib/const";
+import { useEditProposal } from "@/hooks/use-proposal";
 
 export const columns: ColumnDef<Proposal>[] = [
   {
@@ -135,6 +136,7 @@ export const columns: ColumnDef<Proposal>[] = [
     header: "Aksi",
     cell: ({ row }) => {
       const proposal = row.original;
+      const { onOpen } = useEditProposal();
 
       return (
         <DropdownMenu>
@@ -152,7 +154,10 @@ export const columns: ColumnDef<Proposal>[] = [
               <Eye className="mr-2 h-4 w-4" />
               Lihat Detail
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => onOpen()}
+            >
               <Edit className="mr-2 h-4 w-4" />
               Edit
             </DropdownMenuItem>

@@ -11,8 +11,10 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { PlusCircleIcon } from "lucide-react";
+import { useNewProposal } from "@/hooks/use-proposal";
 
 export const SidebarNav = () => {
+  const { onOpen } = useNewProposal();
   const pathname = usePathname();
   const route = navigation.map((item) => ({
     ...item,
@@ -25,11 +27,12 @@ export const SidebarNav = () => {
       <SidebarMenu>
         <SidebarMenuItem className="my-5">
           <SidebarMenuButton
-            tooltip="Add Proposal"
+            onClick={() => onOpen()}
+            tooltip="Tambah Proposal"
             className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
           >
             <PlusCircleIcon className="size-4 bg-primary text-primary-foreground" />
-            <span>Create Proposal</span>
+            <span>Buat Proposal</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>

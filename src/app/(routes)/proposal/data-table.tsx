@@ -33,6 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import { useNewProposal } from "@/hooks/use-proposal";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -52,6 +53,8 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+
+  const { onOpen } = useNewProposal();
 
   const table = useReactTable({
     data,
@@ -95,7 +98,7 @@ export function DataTable<TData, TValue>({
               ?.setFilterValue(value === "all" ? "" : value)
           }
         >
-          <SelectTrigger className="w-full md-48">
+          <SelectTrigger className="w-full md:w-48">
             <SelectValue placeholder="Filter Status" />
           </SelectTrigger>
           <SelectContent>
@@ -114,7 +117,11 @@ export function DataTable<TData, TValue>({
             Hapus
           </Button>
         )}
-        <Button className="ml-2 md:w-auto w-full" variant="default">
+        <Button
+          onClick={() => onOpen()}
+          className="ml-2 md:w-auto w-full"
+          variant="default"
+        >
           Tambah Proposal
         </Button>
       </div>

@@ -33,7 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Search } from "lucide-react";
-import { useNewProposal } from "@/hooks/use-proposal";
+import { useProposalSheet } from "@/hooks/use-proposal";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -54,7 +54,7 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const { onOpen } = useNewProposal();
+  const { onOpen } = useProposalSheet();
 
   const table = useReactTable({
     data,

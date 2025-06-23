@@ -1,11 +1,9 @@
-import { EditProposalSheet } from "@/components/sheets/edit-proposal-sheet";
-import { NewProposalSheet } from "@/components/sheets/new-proposal-sheet";
+import { ProposalSheet } from "@/components/sheets/proposal-sheet";
 
 const SheetProviderClient = () => {
   return (
     <>
-      <NewProposalSheet />
-      <EditProposalSheet />
+      <ProposalSheet />
     </>
   );
 };

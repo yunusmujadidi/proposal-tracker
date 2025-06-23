@@ -11,10 +11,10 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { PlusCircleIcon } from "lucide-react";
-import { useNewProposal } from "@/hooks/use-proposal";
+import { useProposalSheet } from "@/hooks/use-proposal";
 
 export const SidebarNav = () => {
-  const { onOpen } = useNewProposal();
+  const { onOpen } = useProposalSheet();
   const pathname = usePathname();
   const route = navigation.map((item) => ({
     ...item,

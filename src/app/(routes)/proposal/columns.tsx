@@ -24,7 +24,8 @@ import {
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { getStatusColor } from "@/lib/const";
-import { useEditProposal } from "@/hooks/use-proposal";
+import { useProposalSheet } from "@/hooks/use-proposal";
+import { formatIDR } from "@/lib/utils";
 
 export const columns: ColumnDef<Proposal>[] = [
   {
@@ -76,11 +77,7 @@ export const columns: ColumnDef<Proposal>[] = [
     ),
     cell: ({ row }) => {
       const amount = row.getValue("amount") as number;
-      return new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        maximumFractionDigits: 0,
-      }).format(amount);
+      return formatIDR(amount);
     },
   },
   {
@@ -136,7 +133,7 @@ export const columns: ColumnDef<Proposal>[] = [
     header: "Aksi",
     cell: ({ row }) => {
       const proposal = row.original;
-      const { onOpen } = useEditProposal();
+      const { onOpen } = useProposalSheet();
 
       return (
         <DropdownMenu>

@@ -22,7 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Input } from "@/components/ui/input";
 
 import {
@@ -32,8 +32,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import { useNewProposalSheet } from "@/hooks/use-proposal";
+import { deleteProposals } from "@/actions/proposal-actions";
+import { Proposal } from "../../../../generated/prisma";
+import { toast } from "sonner";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -53,6 +56,8 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+
+  const [isPending, startTransition] = useTransition();
 
   const { onOpen } = useNewProposalSheet();
 
@@ -75,6 +80,28 @@ export function DataTable<TData, TValue>({
       rowSelection,
     },
   });
+
+  const handleBulkDelete = () => {
+    const selectedIds = table
+      .getFilteredSelectedRowModel()
+      .rows.map((row) => (row.original as Proposal).id);
+
+    startTransition(async () => {
+      try {
+        const result = await deleteProposals(selectedIds);
+
+        if (result.success) {
+          toast.success(`${selectedIds.length} proposal berhasil dihapus`);
+          setRowSelection({});
+        } else {
+          toast.error(result.error);
+        }
+      } catch (error) {
+        console.error("Error deleting proposals:", error);
+        toast.error("Terjadi kesalahan saat menghapus proposal");
+      }
+    });
+  };
 
   return (
     <div>
@@ -113,8 +140,20 @@ export function DataTable<TData, TValue>({
           </SelectContent>
         </Select>
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
-          <Button className="ml-2 md:w-auto w-full" variant="destructive">
-            Hapus
+          <Button
+            disabled={isPending}
+            className="ml-2 md:w-auto w-full"
+            variant="destructive"
+            onClick={handleBulkDelete}
+          >
+            {isPending ? (
+              <>
+                {" "}
+                Menghapus... <Loader2 className="size-4 animate-spin" />
+              </>
+            ) : (
+              `Hapus (${table.getFilteredSelectedRowModel().rows.length})`
+            )}
           </Button>
         )}
         <Button

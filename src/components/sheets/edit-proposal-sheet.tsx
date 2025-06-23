@@ -13,14 +13,14 @@ import {
 import { useNewProposalSheet } from "@/hooks/use-proposal";
 import { Button } from "../ui/button";
 import { z } from "zod";
-import { proposalSchema } from "@/lib/zod-schema";
+import { ProposalSchema } from "@/lib/zod-schema";
 import { useTransition } from "react";
 
 export const EditProposalSheet = () => {
   const { isOpen, onClose } = useNewProposalSheet();
   const [isPending, startTransition] = useTransition();
 
-  const onSubmit = (values: z.infer<typeof proposalSchema>) => {
+  const onSubmit = (values: z.infer<typeof ProposalSchema>) => {
     console.log(values);
   };
 

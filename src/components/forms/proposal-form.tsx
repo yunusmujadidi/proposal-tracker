@@ -22,16 +22,16 @@ import { getStatusColor } from "@/lib/const";
 import { Badge } from "@/components/ui/badge";
 import { Proposal as ProposalType } from "../../../generated/prisma";
 import { formatIDR, parseIDR } from "@/lib/utils";
-import { proposalSchema } from "@/lib/zod-schema";
+import { ProposalSchema } from "@/lib/zod-schema";
 import { Textarea } from "@/components/ui/textarea";
 
 export const ProposalForm = ({
   onSubmit,
 }: {
-  onSubmit: (values: z.infer<typeof proposalSchema>) => void;
+  onSubmit: (values: z.infer<typeof ProposalSchema>) => void;
 }) => {
-  const form = useForm<z.infer<typeof proposalSchema>>({
-    resolver: zodResolver(proposalSchema),
+  const form = useForm<z.infer<typeof ProposalSchema>>({
+    resolver: zodResolver(ProposalSchema),
     defaultValues: {
       name: "",
       notes: "",

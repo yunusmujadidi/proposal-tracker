@@ -24,7 +24,10 @@ import {
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { getStatusColor } from "@/lib/const";
-import { useNewProposalSheet } from "@/hooks/use-proposal";
+import {
+  useEditProposalSheet,
+  useNewProposalSheet,
+} from "@/hooks/use-proposal";
 import { formatIDR } from "@/lib/utils";
 
 export const columns: ColumnDef<Proposal>[] = [
@@ -133,7 +136,7 @@ export const columns: ColumnDef<Proposal>[] = [
     header: "Aksi",
     cell: ({ row }) => {
       const proposal = row.original;
-      const { onOpen } = useNewProposalSheet();
+      const { onOpen } = useEditProposalSheet();
 
       return (
         <DropdownMenu>
@@ -147,19 +150,20 @@ export const columns: ColumnDef<Proposal>[] = [
             <DropdownMenuLabel>Aksi</DropdownMenuLabel>
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
-              <Eye className="mr-2 h-4 w-4" />
-              Lihat Detail
-            </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => onOpen()}
+              onClick={() => onOpen(proposal)}
             >
               <Edit className="mr-2 h-4 w-4" />
               Edit
             </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
+              <Eye className="mr-2 h-4 w-4" />
+              Lihat Detail
+            </DropdownMenuItem>
+
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600">
+            <DropdownMenuItem className="cursor-pointer">
               <Trash2 className="mr-2 h-4 w-4" />
               Hapus
             </DropdownMenuItem>

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { ProposalStatus } from "../../../generated/prisma";
+import { Proposal, ProposalStatus } from "../../../generated/prisma";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -24,22 +24,37 @@ import { Proposal as ProposalType } from "../../../generated/prisma";
 import { formatIDR, parseIDR } from "@/lib/utils";
 import { ProposalSchema } from "@/lib/zod-schema";
 import { Textarea } from "@/components/ui/textarea";
+import { useEffect } from "react";
 
 export const ProposalForm = ({
   onSubmit,
+  data,
 }: {
   onSubmit: (values: z.infer<typeof ProposalSchema>) => void;
+  data?: Proposal;
 }) => {
   const form = useForm<z.infer<typeof ProposalSchema>>({
     resolver: zodResolver(ProposalSchema),
     defaultValues: {
-      name: "",
-      notes: "",
-      amount: 0,
-      link: "",
-      status: Object.values(ProposalStatus)[0],
+      name: data?.name || "",
+      notes: data?.notes || "",
+      amount: data?.amount || 0,
+      link: data?.link || "",
+      status: data?.status || Object.values(ProposalStatus)[0],
     },
   });
+
+  useEffect(() => {
+    if (data) {
+      form.reset({
+        name: data.name,
+        notes: data.notes || "",
+        amount: data.amount,
+        link: data.link,
+        status: data.status,
+      });
+    }
+  }, [data, form]);
 
   return (
     <div className="grid flex-1 auto-rows-min gap-6 px-4">
@@ -100,10 +115,7 @@ export const ProposalForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Status</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Pilih status proposal" />

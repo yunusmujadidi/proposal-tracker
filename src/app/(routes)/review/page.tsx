@@ -1,5 +1,5 @@
 const ReviewPage = () => {
-  return <div>ReviewPage</div>;
+  return <div>xd</div>;
 };
 
 export default ReviewPage;

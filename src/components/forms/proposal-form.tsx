@@ -101,9 +101,12 @@ export const ProposalForm = ({
             name="link"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Link Proposal</FormLabel>
+                <FormLabel>Link Google Drive</FormLabel>
                 <FormControl>
-                  <Input placeholder="https://..." {...field} />
+                  <Input
+                    placeholder="https://drive.google.com/..."
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

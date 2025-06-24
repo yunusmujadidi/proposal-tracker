@@ -1,4 +1,4 @@
-import { Book, BookCopyIcon, FileText, LayoutDashboard } from "lucide-react";
+import { BookCopyIcon, FileText, LayoutDashboard } from "lucide-react";
 import { Proposal } from "../../generated/prisma";
 
 export const navigation = [

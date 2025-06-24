@@ -4,7 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { ProposalSchema } from "@/lib/zod-schema";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { Proposal } from "../../generated/prisma";
 
 export const revalidateProposals = async () => {
   revalidatePath("/proposal");

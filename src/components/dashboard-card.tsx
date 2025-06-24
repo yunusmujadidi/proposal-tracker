@@ -4,11 +4,9 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardAction,
   CardContent,
-  CardFooter,
 } from "./ui/card";
-import { Icon, LucideIcon, LucideProps } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 interface DashboardCardProps {
   title: string;

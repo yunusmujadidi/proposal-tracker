@@ -5,30 +5,13 @@ import { Proposal, ProposalStatus } from "../../../../generated/prisma";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  ArrowUpDown,
-  ExternalLink,
-  MoreHorizontal,
-  Eye,
-  Edit,
-  Trash2,
-} from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { ArrowUpDown, ExternalLink } from "lucide-react";
+
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { getStatusColor } from "@/lib/const";
-import {
-  useEditProposalSheet,
-  useNewProposalSheet,
-} from "@/hooks/use-proposal";
 import { formatIDR } from "@/lib/utils";
+import { ProposalTableAction } from "./table-actions";
 
 export const columns: ColumnDef<Proposal>[] = [
   {
@@ -135,41 +118,7 @@ export const columns: ColumnDef<Proposal>[] = [
     id: "actions",
     header: "Aksi",
     cell: ({ row }) => {
-      const proposal = row.original;
-      const { onOpen } = useEditProposalSheet();
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0 hover:bg-gray-100">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-[160px]">
-            <DropdownMenuLabel>Aksi</DropdownMenuLabel>
-
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => onOpen(proposal)}
-            >
-              <Edit className="mr-2 h-4 w-4" />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <Eye className="mr-2 h-4 w-4" />
-              Lihat Detail
-            </DropdownMenuItem>
-
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
-              <Trash2 className="mr-2 h-4 w-4" />
-              Hapus
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <ProposalTableAction {...row.original} />;
     },
   },
 ];

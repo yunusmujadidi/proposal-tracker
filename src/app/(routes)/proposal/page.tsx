@@ -11,26 +11,30 @@ import { getProposals } from "@/actions/proposal-actions";
 import { Suspense } from "react";
 import { ProposalTableSkeleton } from "./proposal-skeleton";
 
-const ReviewPage = async () => {
+const ProposalPage = async () => {
   const { data = [] } = await getProposals();
 
   return (
-    <Suspense fallback={<ProposalTableSkeleton />}>
-      <div className="p-4 m-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Daftar Proposal</CardTitle>
-            <CardDescription>
-              Kelola dan review proposal yang masuk
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <DataTable columns={columns} data={data} />
-          </CardContent>
-        </Card>
-      </div>
-    </Suspense>
+    <div className="p-4 m-2">
+      <Card>
+        <CardHeader>
+          <CardTitle>Daftar Proposal</CardTitle>
+          <CardDescription>
+            Kelola dan review proposal yang masuk
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <DataTable columns={columns} data={data} />
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
-export default ReviewPage;
+export default function Page() {
+  return (
+    <Suspense fallback={<ProposalTableSkeleton />}>
+      <ProposalPage />
+    </Suspense>
+  );
+}

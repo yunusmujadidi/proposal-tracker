@@ -36,6 +36,7 @@ export const NewProposalSheet = () => {
         }
       } catch (error) {
         toast.error("An unexpected error occurred");
+        console.error(error);
       }
     });
   };

@@ -1,34 +1,18 @@
-import { DashboardCard } from "@/components/dashboard-card";
-import { CheckCircle2, Clock2, FileText, Target } from "lucide-react";
+import { getProposals } from "@/actions/proposal-actions";
+import { AmountChart } from "@/components/amount-chart";
+import { DashboardStats } from "@/components/dashboard-stats";
+import { StatusChart } from "@/components/status-chart";
 
-const Home = () => {
+const Home = async () => {
+  const { data = [] } = await getProposals();
+
   return (
-    <div className="m-2 p-4">
-      <div className="grid grid-cols=1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <DashboardCard
-          title="Total Proposal"
-          description="Jumlah total proposal"
-          icon={FileText}
-          number={Math.random()}
-        />
-        <DashboardCard
-          title="Menunggu Review"
-          description="Jumlah proposal pending"
-          icon={Clock2}
-          number={Math.random()}
-        />
-        <DashboardCard
-          title="Proposal Disetujui"
-          description="Jumlah proposal yang disetujui"
-          icon={CheckCircle2}
-          number={Math.random()}
-        />
-        <DashboardCard
-          title="Tercapai"
-          description="Jumlah presentase proposal keseluruhan"
-          icon={Target}
-          number={Math.random()}
-        />
+    <div className="m-2 p-4 space-y-6">
+      <DashboardStats proposals={data} />
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <StatusChart proposals={data} />
+        <AmountChart proposals={data} />
       </div>
     </div>
   );

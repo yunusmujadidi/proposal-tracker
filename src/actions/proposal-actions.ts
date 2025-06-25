@@ -105,16 +105,17 @@ export const updateProposalStatus = async (
   notes?: string
 ) => {
   try {
-    const updateData: any = { status };
-    if (notes && notes.trim()) {
-      updateData.notes = notes.trim();
+    const data: { status: ProposalStatus; notes?: string } = {
+      status,
+    };
+
+    const trimmedNotes = notes?.trim();
+    if (trimmedNotes) {
+      data.notes = trimmedNotes;
     }
 
     const result = await prisma.proposal.update({
-      data: {
-        status,
-        notes,
-      },
+      data,
       where: {
         id,
       },

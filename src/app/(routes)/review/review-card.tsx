@@ -26,7 +26,6 @@ import {
   XCircle,
   FileSearch,
   Users,
-  Archive,
   ExternalLink,
   Calendar,
   DollarSign,
@@ -178,7 +177,7 @@ export const ReviewCard = ({ proposal }: ReviewCardProps) => {
           <DialogHeader>
             <DialogTitle>Konfirmasi Perubahan Status</DialogTitle>
             <DialogDescription>
-              Anda akan mengubah status proposal "{proposal.name}" menjadi{" "}
+              Anda akan mengubah status proposal {proposal.name} menjadi
               {selectedStatus && (
                 <Badge className={getStatusColor(selectedStatus)}>
                   {getStatusLabel(selectedStatus)}

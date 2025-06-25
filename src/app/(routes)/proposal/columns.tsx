@@ -9,7 +9,7 @@ import { ArrowUpDown, ExternalLink } from "lucide-react";
 
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { getStatusColor } from "@/lib/const";
+import { getStatusColor, getStatusLabel } from "@/lib/const";
 import { formatIDR } from "@/lib/utils";
 import { ProposalTableAction } from "./table-actions";
 
@@ -73,7 +73,7 @@ export const columns: ColumnDef<Proposal>[] = [
       const status = row.getValue("status") as ProposalStatus;
       return (
         <Badge className={getStatusColor(status)}>
-          {status.replace(/_/g, " ")}
+          {getStatusLabel(status)}
         </Badge>
       );
     },

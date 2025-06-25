@@ -16,12 +16,11 @@ datasource db {
 
 enum ProposalStatus {
   PENDING
-  ASSIGNEN_TO_DIVISION
-  APPROVED
-  REJECTED
-  ACHIEVED
-  CANCELLED
-  NEEDS_SURVEY
+  SURVEY
+  ACC
+  NOACC
+  ARSIP
+  DISPODIVISI
 }
 
 model Proposal {

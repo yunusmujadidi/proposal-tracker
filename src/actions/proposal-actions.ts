@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { ProposalSchema } from "@/lib/zod-schema";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { ProposalStatus } from "../../generated/prisma";
 
 export const revalidateProposals = async () => {
   revalidatePath("/proposal");
@@ -95,5 +96,33 @@ export const updateProposal = async (
   } catch (error) {
     console.error("Failed to update proposal:", error);
     return { success: false, error: "Failed to update proposal" };
+  }
+};
+
+export const updateProposalStatus = async (
+  id: string,
+  status: ProposalStatus,
+  notes?: string
+) => {
+  try {
+    const updateData: any = { status };
+    if (notes && notes.trim()) {
+      updateData.notes = notes.trim();
+    }
+
+    const result = await prisma.proposal.update({
+      data: {
+        status,
+        notes,
+      },
+      where: {
+        id,
+      },
+    });
+    revalidateProposals();
+    return { success: true, data: result };
+  } catch (error) {
+    console.error("Failed to update proposal status:", error);
+    return { success: false, error: "Failed to update proposal status" };
   }
 };

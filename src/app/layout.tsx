@@ -6,6 +6,7 @@ import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { Navbar } from "@/components/navbar";
 import SheetProvider from "@/providers/sheet-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { DialogProvider } from "@/providers/dialog-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
               <Navbar />
               {children}
               <SheetProvider />
+              <DialogProvider />
             </main>
           </SidebarInset>
         </SidebarProvider>

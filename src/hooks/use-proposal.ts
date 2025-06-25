@@ -14,6 +14,13 @@ type EditProposalState = {
   proposal: Proposal | null;
 };
 
+type ViewProposalState = {
+  isOpen: boolean;
+  onOpen: (proposal: Proposal) => void;
+  onClose: () => void;
+  proposal: Proposal | null;
+};
+
 export const useNewProposalSheet = create<NewProposalState>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
@@ -21,6 +28,13 @@ export const useNewProposalSheet = create<NewProposalState>((set) => ({
 }));
 
 export const useEditProposalSheet = create<EditProposalState>((set) => ({
+  isOpen: false,
+  proposal: null,
+  onOpen: (proposal) => set({ isOpen: true, proposal }),
+  onClose: () => set({ isOpen: false }),
+}));
+
+export const useViewProposalDialog = create<ViewProposalState>((set) => ({
   isOpen: false,
   proposal: null,
   onOpen: (proposal) => set({ isOpen: true, proposal }),

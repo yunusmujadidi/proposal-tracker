@@ -28,7 +28,6 @@ import {
   Users,
   ExternalLink,
   Calendar,
-  DollarSign,
 } from "lucide-react";
 import { getStatusColor, getStatusLabel } from "@/lib/const";
 import { updateProposalStatus } from "@/actions/proposal-actions";
@@ -84,88 +83,96 @@ export const ReviewCard = ({ proposal }: ReviewCardProps) => {
   return (
     <>
       <Card className="w-full">
-        <CardHeader>
-          <div className="flex items-start justify-between">
-            <div className="space-y-1">
-              <CardTitle className="text-lg">{proposal.name}</CardTitle>
-              <CardDescription className="flex items-center gap-4 text-sm">
-                <span className="flex items-center gap-1">
-                  <Calendar className="h-4 w-4" />
-                  {format(proposal.createdAt, "dd MMM yyyy", { locale: id })}
-                </span>
-                <span className="flex items-center gap-1">
-                  <DollarSign className="h-4 w-4" />
+        <CardHeader className="pb-4">
+          <div className="flex flex-col gap-3">
+            <div className="flex items-start justify-between gap-2">
+              <CardTitle className="text-lg leading-tight">
+                {proposal.name}
+              </CardTitle>
+              <Badge className={`${getStatusColor(proposal.status)} shrink-0`}>
+                {getStatusLabel(proposal.status)}
+              </Badge>
+            </div>
+            <CardDescription className="flex flex-col gap-2 text-sm">
+              <span className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 shrink-0" />
+                {format(proposal.createdAt, "dd MMM yyyy", { locale: id })}
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="font-semibold text-lg">
                   {formatIDR(proposal.amount)}
                 </span>
-              </CardDescription>
-            </div>
-            <Badge className={getStatusColor(proposal.status)}>
-              {getStatusLabel(proposal.status)}
-            </Badge>
+              </span>
+            </CardDescription>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
           {proposal.notes && (
-            <div>
-              <Label className="text-sm font-medium">Catatan</Label>
-              <p className="text-sm text-muted-foreground mt-1">
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <Label className="text-sm font-medium text-gray-700">
+                Catatan
+              </Label>
+              <p className="text-sm text-gray-600 mt-1 leading-relaxed">
                 {proposal.notes}
               </p>
             </div>
           )}
 
-          <div className="flex items-center justify-between pt-4 border-t">
-            <Button variant="outline" size="sm" asChild>
+          <div className="space-y-3">
+            <Button variant="outline" size="lg" className="w-full h-12" asChild>
               <a
                 href={proposal.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2"
+                className="flex items-center justify-center gap-2"
               >
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink className="h-5 w-5" />
                 Lihat Dokumen
               </a>
             </Button>
 
-            <div className="flex items-center gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Button
-                size="sm"
+                size="lg"
                 variant="outline"
                 onClick={() => handleStatusChange("SURVEY")}
                 disabled={proposal.status === "SURVEY" || isPending}
-                className="text-orange-600 border-orange-600 hover:bg-orange-50"
+                className="h-12 text-orange-600 border-orange-200 bg-orange-50 hover:bg-orange-100 disabled:opacity-50"
               >
-                <FileSearch className="h-4 w-4 mr-1" />
-                Survey
+                <FileSearch className="h-5 w-5 mr-2" />
+                Perlu Survey
               </Button>
               <Button
-                size="sm"
+                size="lg"
                 variant="outline"
                 onClick={() => handleStatusChange("DISPODIVISI")}
                 disabled={proposal.status === "DISPODIVISI" || isPending}
-                className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                className="h-12 text-blue-600 border-blue-200 bg-blue-50 hover:bg-blue-100 disabled:opacity-50"
               >
-                <Users className="h-4 w-4 mr-1" />
-                Disposisi
+                <Users className="h-5 w-5 mr-2" />
+                Disposisi Divisi
               </Button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Button
-                size="sm"
+                size="lg"
                 variant="outline"
                 onClick={() => handleStatusChange("NOACC")}
                 disabled={proposal.status === "NOACC" || isPending}
-                className="text-red-600 border-red-600 hover:bg-red-50"
+                className="h-12 text-red-600 border-red-200 bg-red-50 hover:bg-red-100 disabled:opacity-50"
               >
-                <XCircle className="h-4 w-4 mr-1" />
-                Tolak
+                <XCircle className="h-5 w-5 mr-2" />
+                Tolak Proposal
               </Button>
               <Button
-                size="sm"
+                size="lg"
                 onClick={() => handleStatusChange("ACC")}
                 disabled={proposal.status === "ACC" || isPending}
-                className="bg-green-600 hover:bg-green-700 text-white"
+                className="h-12 bg-green-600 hover:bg-green-700 text-white disabled:opacity-50"
               >
-                <CheckCircle className="h-4 w-4 mr-1" />
-                Setujui
+                <CheckCircle className="h-5 w-5 mr-2" />
+                Setujui Proposal
               </Button>
             </div>
           </div>
@@ -173,13 +180,15 @@ export const ReviewCard = ({ proposal }: ReviewCardProps) => {
       </Card>
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] mx-4">
           <DialogHeader>
             <DialogTitle>Konfirmasi Perubahan Status</DialogTitle>
-            <DialogDescription>
-              Anda akan mengubah status proposal {proposal.name} menjadi
+            <DialogDescription className="space-y-2">
+              <span>
+                Anda akan mengubah status proposal {proposal.name} menjadi:{" "}
+              </span>
               {selectedStatus && (
-                <Badge className={getStatusColor(selectedStatus)}>
+                <Badge className={`${getStatusColor(selectedStatus)} text-sm`}>
                   {getStatusLabel(selectedStatus)}
                 </Badge>
               )}
@@ -194,10 +203,11 @@ export const ReviewCard = ({ proposal }: ReviewCardProps) => {
                 value={reviewNotes}
                 onChange={(e) => setReviewNotes(e.target.value)}
                 rows={4}
+                className="resize-none"
               />
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="flex flex-col sm:flex-row gap-2">
             <Button
               type="button"
               variant="outline"

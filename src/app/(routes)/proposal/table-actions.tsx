@@ -7,12 +7,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useEditProposalSheet } from "@/hooks/use-proposal";
+import {
+  useEditProposalSheet,
+  useViewProposalDialog,
+} from "@/hooks/use-proposal";
 import { MoreHorizontal, Edit, Eye, Trash2 } from "lucide-react";
 import { Proposal } from "../../../../generated/prisma";
 
 export const ProposalTableAction = (proposal: Proposal) => {
-  const { onOpen } = useEditProposalSheet();
+  const { onOpen: onOpenEdit } = useEditProposalSheet();
+  const { onOpen: onOpenView } = useViewProposalDialog();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,12 +31,15 @@ export const ProposalTableAction = (proposal: Proposal) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
-          onClick={() => onOpen(proposal)}
+          onClick={() => onOpenEdit(proposal)}
         >
           <Edit className="mr-2 h-4 w-4" />
           Edit
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer">
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => onOpenView(proposal)}
+        >
           <Eye className="mr-2 h-4 w-4" />
           Lihat Detail
         </DropdownMenuItem>

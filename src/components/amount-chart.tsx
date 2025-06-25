@@ -57,8 +57,11 @@ export const AmountChart = ({ proposals }: AmountChartProps) => {
         <CardDescription>Total dana yang diajukan setiap bulan</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[300px]">
-          <ResponsiveContainer width="100%" height="100%">
+        <ChartContainer
+          config={chartConfig}
+          className="aspect-video h-full w-full"
+        >
+          <ResponsiveContainer width="100%" height="100%" minHeight={300}>
             <BarChart data={chartData}>
               <XAxis
                 dataKey="month"

@@ -79,8 +79,11 @@ export const StatusChart = ({ proposals }: StatusChartProps) => {
         <CardDescription>Distribusi status semua proposal</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[300px]">
-          <ResponsiveContainer width="100%" height="100%">
+        <ChartContainer
+          config={chartConfig}
+          className="aspect-square h-full w-full"
+        >
+          <ResponsiveContainer width="100%" height="100%" minHeight={300}>
             <PieChart>
               <Pie
                 data={chartData}

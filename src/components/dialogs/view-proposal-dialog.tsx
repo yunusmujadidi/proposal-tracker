@@ -102,7 +102,7 @@ export const ViewProposalDialog = () => {
             </div>
           </div>
 
-          {/* Notes Section - Fixed overflow issue */}
+          {/* Notes Section */}
           {proposal.notes && (
             <div className="p-4 bg-blue-50 rounded-xl border border-blue-200">
               <div className="flex items-start gap-3">
@@ -114,6 +114,90 @@ export const ViewProposalDialog = () => {
                   <div className="bg-white p-3 rounded-lg border border-blue-100 max-h-32 overflow-y-auto">
                     <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words">
                       {proposal.notes}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Manager Division Notes Section */}
+          {proposal.managerDivisionNotes && (
+            <div className="p-4 bg-orange-50 rounded-xl border border-orange-200">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-white rounded-lg shrink-0">
+                  <MessageSquare className="h-5 w-5 text-orange-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Catatan Manager Divisi
+                  </h3>
+                  <div className="bg-white p-3 rounded-lg border border-orange-100 max-h-32 overflow-y-auto">
+                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words">
+                      {proposal.managerDivisionNotes}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Manager Area Notes Section */}
+          {proposal.managerAreaNotes && (
+            <div className="p-4 bg-green-50 rounded-xl border border-green-200">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-white rounded-lg shrink-0">
+                  <MessageSquare className="h-5 w-5 text-green-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Catatan Manager Area (Keputusan Akhir)
+                  </h3>
+                  <div className="bg-white p-3 rounded-lg border border-green-100 max-h-32 overflow-y-auto">
+                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words">
+                      {proposal.managerAreaNotes}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Division Manager Notes Section */}
+          {proposal.divisionManagerNotes && (
+            <div className="p-4 bg-purple-50 rounded-xl border border-purple-200">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-white rounded-lg shrink-0">
+                  <MessageSquare className="h-5 w-5 text-purple-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Catatan Division Manager
+                  </h3>
+                  <div className="bg-white p-3 rounded-lg border border-purple-100 max-h-32 overflow-y-auto">
+                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words">
+                      {proposal.divisionManagerNotes}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Division Area Notes Section */}
+          {proposal.divisionAreaNotes && (
+            <div className="p-4 bg-indigo-50 rounded-xl border border-indigo-200">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-white rounded-lg shrink-0">
+                  <MessageSquare className="h-5 w-5 text-indigo-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Catatan Division Area
+                  </h3>
+                  <div className="bg-white p-3 rounded-lg border border-indigo-100 max-h-32 overflow-y-auto">
+                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words">
+                      {proposal.divisionAreaNotes}
                     </p>
                   </div>
                 </div>

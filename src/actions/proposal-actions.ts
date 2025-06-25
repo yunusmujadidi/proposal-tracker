@@ -101,16 +101,30 @@ export const updateProposal = async (
 export const updateProposalStatus = async (
   id: string,
   status: ProposalStatus,
-  notes?: string
+  notes?: {
+    notes?: string;
+    managerDivisionNotes?: string;
+    managerAreaNotes?: string;
+  }
 ) => {
   try {
-    const data: { status: ProposalStatus; notes?: string } = {
+    const data: {
+      status: ProposalStatus;
+      notes?: string;
+      managerDivisionNotes?: string;
+      managerAreaNotes?: string;
+    } = {
       status,
     };
 
-    const trimmedNotes = notes?.trim();
-    if (trimmedNotes) {
-      data.notes = trimmedNotes;
+    if (notes?.notes?.trim()) {
+      data.notes = notes.notes.trim();
+    }
+    if (notes?.managerDivisionNotes?.trim()) {
+      data.managerDivisionNotes = notes.managerDivisionNotes.trim();
+    }
+    if (notes?.managerAreaNotes?.trim()) {
+      data.managerAreaNotes = notes.managerAreaNotes.trim();
     }
 
     const result = await prisma.proposal.update({

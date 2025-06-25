@@ -38,6 +38,8 @@ export const ProposalForm = ({
     defaultValues: {
       name: data?.name || "",
       notes: data?.notes || "",
+      managerDivisionNotes: data?.managerDivisionNotes || "",
+      managerAreaNotes: data?.managerAreaNotes || "",
       amount: data?.amount || 0,
       link: data?.link || "",
       status: data?.status || Object.values(ProposalStatus)[0],
@@ -49,6 +51,8 @@ export const ProposalForm = ({
       form.reset({
         name: data.name,
         notes: data.notes || "",
+        managerDivisionNotes: data.managerDivisionNotes || "",
+        managerAreaNotes: data.managerAreaNotes || "",
         amount: data.amount,
         link: data.link,
         status: data.status,
@@ -149,7 +153,39 @@ export const ProposalForm = ({
               <FormItem>
                 <FormLabel>Catatan</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Catatan opsional..." {...field} />
+                  <Textarea placeholder="Catatan..." {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="managerDivisionNotes"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Catatan Manager Divisi</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Catatan dari manager divisi..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="managerAreaNotes"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Catatan Manager Area</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Catatan dari manager area..."
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

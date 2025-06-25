@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Proposal, ProposalStatus } from "../../../../generated/prisma";
+import { Proposal, ProposalStatus } from "../../../generated/prisma";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -9,7 +9,7 @@ import { ArrowUpDown, ExternalLink } from "lucide-react";
 
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { getStatusColor, getStatusLabel } from "@/lib/const";
+import { getStatusColor, getStatusLabel } from "@/lib/utils";
 import { formatIDR } from "@/lib/utils";
 import { ProposalTableAction } from "./table-actions";
 

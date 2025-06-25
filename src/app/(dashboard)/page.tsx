@@ -1,7 +1,16 @@
 import { getProposals } from "@/actions/proposal-actions";
-import { AmountChart } from "@/components/amount-chart";
 import { DashboardStats } from "@/components/dashboard-stats";
-import { StatusChart } from "@/components/status-chart";
+import { columns } from "@/components/table/columns";
+import { DataTable } from "@/components/table/data-table";
+import { ProposalTableSkeleton } from "@/components/table/proposal-skeleton";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Suspense } from "react";
 
 const Home = async () => {
   const { data = [] } = await getProposals();
@@ -10,12 +19,25 @@ const Home = async () => {
     <div className="m-2 p-4 space-y-6">
       <DashboardStats proposals={data} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <StatusChart proposals={data} />
-        <AmountChart proposals={data} />
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Daftar Proposal</CardTitle>
+          <CardDescription>
+            Kelola dan review proposal yang masuk
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <DataTable columns={columns} data={data} />
+        </CardContent>
+      </Card>
     </div>
   );
 };
 
-export default Home;
+export default function Page() {
+  return (
+    <Suspense fallback={<ProposalTableSkeleton />}>
+      <Home />
+    </Suspense>
+  );
+}

@@ -7,7 +7,6 @@ import { z } from "zod";
 import { ProposalStatus } from "../../generated/prisma";
 
 export const revalidateProposals = async () => {
-  revalidatePath("/proposal");
   revalidatePath("/");
   revalidatePath("/review");
 };
@@ -125,5 +124,53 @@ export const updateProposalStatus = async (
   } catch (error) {
     console.error("Failed to update proposal status:", error);
     return { success: false, error: "Failed to update proposal status" };
+  }
+};
+
+export const getProposalStats = async () => {
+  try {
+    // Get counts by status
+    const statusCounts = await prisma.proposal.groupBy({
+      by: ["status"],
+      _count: {
+        id: true,
+      },
+      _sum: {
+        amount: true,
+      },
+    });
+
+    // Transform the results into a more usable format
+    const stats = statusCounts.reduce((acc, item) => {
+      acc[item.status] = {
+        count: item._count.id,
+        totalAmount: item._sum.amount || 0,
+      };
+      return acc;
+    }, {} as Record<string, { count: number; totalAmount: number }>);
+
+    // Calculate additional metrics
+    const pendingCount = stats.PENDING?.count || 0;
+    const pendingAmount = stats.PENDING?.totalAmount || 0;
+    const surveyCount = stats.SURVEY?.count || 0;
+    const reviewedCount =
+      (stats.ACC?.count || 0) +
+      (stats.NOACC?.count || 0) +
+      (stats.DISPODIVISI?.count || 0) +
+      (stats.SURVEY?.count || 0);
+
+    return {
+      success: true,
+      data: {
+        pendingCount,
+        pendingAmount,
+        surveyCount,
+        reviewedCount,
+        statusBreakdown: stats,
+      },
+    };
+  } catch (error) {
+    console.error("Failed to fetch proposal stats:", error);
+    return { success: false, error: "Failed to fetch proposal stats" };
   }
 };

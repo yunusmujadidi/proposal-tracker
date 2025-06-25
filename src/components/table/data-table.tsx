@@ -35,7 +35,7 @@ import {
 import { Loader2, Search } from "lucide-react";
 import { useNewProposalSheet } from "@/hooks/use-proposal";
 import { deleteProposals } from "@/actions/proposal-actions";
-import { Proposal } from "../../../../generated/prisma";
+import { Proposal } from "../../../generated/prisma";
 import { toast } from "sonner";
 
 interface DataTableProps<TData, TValue> {

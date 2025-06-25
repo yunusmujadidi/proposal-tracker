@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { getStatusColor, getStatusLabel } from "@/lib/const";
+import { getStatusColor, getStatusLabel } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Proposal as ProposalType } from "../../../generated/prisma";
 import { formatIDR, parseIDR } from "@/lib/utils";

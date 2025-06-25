@@ -12,7 +12,7 @@ import {
   useViewProposalDialog,
 } from "@/hooks/use-proposal";
 import { MoreHorizontal, Edit, Eye, Trash2 } from "lucide-react";
-import { Proposal } from "../../../../generated/prisma";
+import { Proposal } from "../../../generated/prisma";
 
 export const ProposalTableAction = (proposal: Proposal) => {
   const { onOpen: onOpenEdit } = useEditProposalSheet();

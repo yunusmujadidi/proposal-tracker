@@ -24,6 +24,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
 import { Input } from "@/components/ui/input";
+import { Proposal as ProposalType } from "../../../generated/prisma";
+import { Proposal, ProposalStatus } from "../../../generated/prisma";
 
 import {
   Select,
@@ -35,8 +37,9 @@ import {
 import { Loader2, Search } from "lucide-react";
 import { useNewProposalSheet } from "@/hooks/use-proposal";
 import { deleteProposals } from "@/actions/proposal-actions";
-import { Proposal } from "../../../generated/prisma";
 import { toast } from "sonner";
+import { Badge } from "../ui/badge";
+import { getStatusColor, getStatusLabel } from "@/lib/utils";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -128,34 +131,42 @@ export function DataTable<TData, TValue>({
           <SelectTrigger className="w-full md:w-48">
             <SelectValue placeholder="Filter Status" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Semua Status</SelectItem>
-            <SelectItem value="PENDING">Menunggu</SelectItem>
-            <SelectItem value="ASSIGNED_TO_DIVISION">Ditugaskan</SelectItem>
-            <SelectItem value="APPROVED">Disetujui</SelectItem>
-            <SelectItem value="REJECTED">Ditolak</SelectItem>
-            <SelectItem value="ACHIEVED">Tercapai</SelectItem>
-            <SelectItem value="CANCELLED">Dibatalkan</SelectItem>
-            <SelectItem value="NEEDS_SURVEY">Perlu Survey</SelectItem>
+
+          <SelectContent className="w-full">
+            <SelectItem value="all">
+              <Badge className="bg-gray-100 text-gray-800">Semua Status</Badge>
+            </SelectItem>
+
+            {Object.values(ProposalStatus).map((status) => (
+              <SelectItem key={status} value={status}>
+                <Badge
+                  className={getStatusColor(status as ProposalType["status"])}
+                >
+                  {getStatusLabel(status as ProposalType["status"])}
+                </Badge>
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
-        {table.getFilteredSelectedRowModel().rows.length > 0 && (
-          <Button
-            disabled={isPending}
-            className="ml-2 md:w-auto w-full"
-            variant="destructive"
-            onClick={handleBulkDelete}
-          >
-            {isPending ? (
-              <>
-                {" "}
-                Menghapus... <Loader2 className="size-4 animate-spin" />
-              </>
-            ) : (
-              `Hapus (${table.getFilteredSelectedRowModel().rows.length})`
-            )}
-          </Button>
-        )}
+
+        <Button
+          disabled={
+            isPending || table.getFilteredSelectedRowModel().rows.length === 0
+          }
+          className="ml-2 md:w-auto w-full"
+          variant="destructive"
+          onClick={handleBulkDelete}
+        >
+          {isPending ? (
+            <>
+              {" "}
+              Menghapus... <Loader2 className="size-4 animate-spin" />
+            </>
+          ) : (
+            `Hapus (${table.getFilteredSelectedRowModel().rows.length})`
+          )}
+        </Button>
+
         <Button
           onClick={() => onOpen()}
           className="ml-2 md:w-auto w-full"

@@ -8,10 +8,11 @@ import {
 import { getProposals, getProposalStats } from "@/actions/proposal-actions";
 import { Badge } from "@/components/ui/badge";
 import { ReviewCard } from "./review-card";
-import { Clock, FileSearch, CheckCircle, Eye } from "lucide-react";
+import { Clock, FileSearch, CheckCircle, Eye, Loader2 } from "lucide-react";
 import { formatIDR } from "@/lib/utils";
+import { Suspense } from "react";
 
-const ReviewPage = async () => {
+const ReviewPageAsync = async () => {
   const [proposalsResult, statsResult] = await Promise.all([
     getProposals(),
     getProposalStats(),
@@ -154,6 +155,20 @@ const ReviewPage = async () => {
         </CardContent>
       </Card>
     </div>
+  );
+};
+
+const ReviewPage = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center">
+          <Loader2 className="animate-spin size-5 h-screen" />
+        </div>
+      }
+    >
+      <ReviewPageAsync />
+    </Suspense>
   );
 };
 

@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar";
 import SheetProvider from "@/providers/sheet-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { DialogProvider } from "@/providers/dialog-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -31,23 +32,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-inter antialiased min-h-screen`}
-        suppressHydrationWarning={true}
       >
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <main>
-              <Navbar />
-              {children}
-              <SheetProvider />
-              <DialogProvider />
-            </main>
-          </SidebarInset>
-        </SidebarProvider>
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+              <main>
+                <Navbar />
+                {children}
+                <SheetProvider />
+                <DialogProvider />
+              </main>
+            </SidebarInset>
+          </SidebarProvider>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

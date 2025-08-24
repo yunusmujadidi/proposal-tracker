@@ -11,7 +11,7 @@ import {
   useEditProposalSheet,
   useViewProposalDialog,
 } from "@/hooks/use-proposal";
-import { MoreHorizontal, Edit, Eye, Trash2 } from "lucide-react";
+import { MoreHorizontal, Edit, Eye } from "lucide-react";
 import { Proposal } from "../../../generated/prisma";
 
 export const ProposalTableAction = (proposal: Proposal) => {
@@ -44,11 +44,12 @@ export const ProposalTableAction = (proposal: Proposal) => {
           Lihat Detail
         </DropdownMenuItem>
 
-        <DropdownMenuSeparator />
+        {/* implement remove proposal per item by id */}
+        {/* <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">
           <Trash2 className="mr-2 h-4 w-4" />
           Hapus
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

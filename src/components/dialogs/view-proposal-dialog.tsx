@@ -163,48 +163,6 @@ export const ViewProposalDialog = () => {
             </div>
           )}
 
-          {/* Division Manager Notes Section */}
-          {proposal.divisionManagerNotes && (
-            <div className="p-4 bg-purple-50 rounded-xl border border-purple-200">
-              <div className="flex items-start gap-3">
-                <div className="p-2 bg-white rounded-lg shrink-0">
-                  <MessageSquare className="h-5 w-5 text-purple-600" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-gray-900 mb-2">
-                    Catatan Division Manager
-                  </h3>
-                  <div className="bg-white p-3 rounded-lg border border-purple-100 max-h-32 overflow-y-auto">
-                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words">
-                      {proposal.divisionManagerNotes}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Division Area Notes Section */}
-          {proposal.divisionAreaNotes && (
-            <div className="p-4 bg-indigo-50 rounded-xl border border-indigo-200">
-              <div className="flex items-start gap-3">
-                <div className="p-2 bg-white rounded-lg shrink-0">
-                  <MessageSquare className="h-5 w-5 text-indigo-600" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-gray-900 mb-2">
-                    Catatan Division Area
-                  </h3>
-                  <div className="bg-white p-3 rounded-lg border border-indigo-100 max-h-32 overflow-y-auto">
-                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap break-words">
-                      {proposal.divisionAreaNotes}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Additional Info */}
           <div className="p-4 bg-gray-50 rounded-xl">
             <div className="text-xs text-gray-500 space-y-1">

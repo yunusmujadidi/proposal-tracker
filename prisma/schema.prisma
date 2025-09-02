@@ -29,8 +29,6 @@ model Proposal {
   notes                String?
   managerDivisionNotes String?
   managerAreaNotes     String?
-  divisionManagerNotes String?
-  divisionAreaNotes    String?
   amount               Int
   link                 String
   status               ProposalStatus @default(PENDING)

@@ -88,7 +88,7 @@ export const ReviewCard = ({ proposal }: ReviewCardProps) => {
         const result = await updateProposalStatus(
           proposal.id,
           selectedStatus,
-          reviewNotes
+          { managerAreaNotes: reviewNotes }
         );
         if (result.success) {
           toast.success(
@@ -327,11 +327,11 @@ export const ReviewCard = ({ proposal }: ReviewCardProps) => {
                 htmlFor="notes"
                 className="text-sm font-medium text-gray-700"
               >
-                Catatan Review
+                Catatan Manager Area
               </Label>
               <Textarea
                 id="notes"
-                placeholder="Tambahkan alasan atau catatan keputusan..."
+                placeholder="Tambahkan catatan sebagai Manager Area..."
                 value={reviewNotes}
                 onChange={(e) => setReviewNotes(e.target.value)}
                 rows={3}

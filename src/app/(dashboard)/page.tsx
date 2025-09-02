@@ -2,7 +2,6 @@ import { getProposals } from "@/actions/proposal-actions";
 import { DashboardStats } from "@/components/dashboard-stats";
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/data-table";
-import { ProposalTableSkeleton } from "@/components/table/proposal-skeleton";
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
 
 const Home = async () => {
@@ -36,7 +36,13 @@ const Home = async () => {
 
 export default function Page() {
   return (
-    <Suspense fallback={<ProposalTableSkeleton />}>
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center">
+          <Loader2 className="animate-spin size-5 h-screen" />
+        </div>
+      }
+    >
       <Home />
     </Suspense>
   );

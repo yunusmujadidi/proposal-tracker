@@ -85,11 +85,9 @@ export const ReviewCard = ({ proposal }: ReviewCardProps) => {
 
     startTransition(async () => {
       try {
-        const result = await updateProposalStatus(
-          proposal.id,
-          selectedStatus,
-          { managerAreaNotes: reviewNotes }
-        );
+        const result = await updateProposalStatus(proposal.id, selectedStatus, {
+          managerAreaNotes: reviewNotes,
+        });
         if (result.success) {
           toast.success(
             `Proposal berhasil ${getStatusLabel(selectedStatus).toLowerCase()}`
